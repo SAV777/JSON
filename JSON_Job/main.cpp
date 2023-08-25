@@ -1,26 +1,28 @@
 #include <QCoreApplication>
+#include <QTextStream>
+#include <name.h>
 
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc,argv);
     QStringList args=QCoreApplication::arguments();
-    bool newRoad=true;
+    bool newName =true;
     if (args.length()>1)
-        newRoad=(args[1].toLower() != QStringLiteral("load"));
+        newName=(args[1].toLower() != QStringLiteral("load"));
     bool json = true ;
     if (args.length()>2)
         json = (args[2].toLower() != QStringLiteral("binary"));
 
-//    Road road;
-//    if (newRoad)
-//        road.newRoad();
-//    else if (!road.loadRoad(json ? Road::Json : Road::Binary))
-//        return 1;
+    Name name;
+    if (newName)
+        name.newName();
+    else if (!name.loadName(json ? Name::Json : Name::Binary))
+            return 1;
 
-//    QTextStream(stdout)<< "Road ended:\n";
-//    road.print();
-//    if (!road.saveRoad(json ? Road::Json : Road::Binary))
-//        return 1;
-//    return 0;
+    QTextStream(stdout)<< "Name ended:\n";
+    name.print();
+    if (!name.saveName(json ? Name::Json : Name::Binary))
+        return 1;
+    return 0;
 
 }
