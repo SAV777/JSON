@@ -2,13 +2,14 @@
 
 #include <QMetaEnum>
 #include <QTextStream>
+QTextStream out(stdout);
 
 Type::Type():
     mType(Info){
 }
 
 
-Type::Type(QDate date, QTime time, const QString &source,
+Type::Type(QString date, QString time, const QString &source,
                 const QString &destination, Type::ClassType type, const QString &message):
     mDate(date),
     mTime(time),
@@ -19,35 +20,35 @@ Type::Type(QDate date, QTime time, const QString &source,
 {
 }
 
-QDate Type::date(){
+QString Type::date(){
     return mDate;
 }
 
-void Type::setDate(QDate date){
-    mDate=date;
+void Type::setDate(){
+    mDate = QDate::currentDate().toString("dd.MM.yyyy");
 }
 
-QTime Type::time(){
+QString Type::time(){
     return mTime;
 }
 
-void Type::setTime(QTime time){
-    mTime=time;
+void Type::setTime(){
+    mTime=QTime::currentTime().toString("H:m:s a");
 }
 
-QString Type::source(){
+QString Type::source() const{
     return mSource;
 }
 
-void Type::setSource(QString &source){
+void Type::setSource(const QString &source){
     mSource=source;
 }
 
-QString Type::destination(){
+QString Type::destination() const{
     return mDestination;
 }
 
-void Type::setDestination(QString &destination){
+void Type::setDestination(const QString &destination){
     mDestination=destination;
 }
 
@@ -59,15 +60,15 @@ void Type::setType(Type::ClassType type){
     mType=type;
 }
 
-QString Type::message(){
+QString Type::message() const{
     return mMessage;
 }
 
-void Type::setMessage(QString &message){
+void Type::setMessage(const QString &message){
     mMessage=message;
 }
 
-void Type::read( QJsonObject &json){
+void Type::read(const QJsonObject &json){
     if (json.contains("date") && json["date"].isString())
         mDate=json["date"].toString();
     if (json.contains("time") && json["time"].isString())
@@ -93,11 +94,11 @@ void Type::write(QJsonObject &json) const {
 
 void Type::print(int indentation) const{
     const QString indent(indentation * 2, ' ');
-    QTextStream(stdout)<< indent << "Date:\t"<<mDate<<"\n";
-    QTextStream(stdout)<< indent << "Time:\t"<<mTime<<"\n";
+    QTextStream(stdout)<< indent << "Date:\t\t" << mDate << "\n";
+    QTextStream(stdout)<< indent << "Time:\t\t"<<mTime<<"\n";
     QTextStream(stdout)<< indent << "Source:\t"<<mSource<<"\n";
     QTextStream(stdout)<< indent << "Destination:\t"<<mDestination<<"\n";
-    QTextStream(stdout)<< indent << "Type:\t"<<mType<<"\n";
+    QTextStream(stdout)<< indent << "Type:\t\t"<<mType<<"\n";
     QTextStream(stdout)<< indent << "Message:\t"<<mMessage<<"\n";
 }
 

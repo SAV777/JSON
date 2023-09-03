@@ -18,8 +18,6 @@ int main(int argc, char *argv[])
         name.newName();
     else if (!name.loadName(json ? Name::Json : Name::Binary))
             return 1;
-
-    QTextStream(stdout)<< "Name ended:\n";
     name.print();
     if (!name.saveName(json ? Name::Json : Name::Binary))
         return 1;

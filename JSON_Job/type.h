@@ -19,33 +19,33 @@ public:
     Q_ENUM(ClassType)
 
     Type();
-    Type(QDate date, QTime time, const QString &source, const QString &destination, ClassType type, const QString &message);
+    Type(QString date, QString time, const QString &source, const QString &destination, ClassType type, const QString &message);
 
-    QDate date();
-    void setDate(QDate date);
+    QString date();
+    void setDate();
 
-    QTime time();
-    void setTime(QTime time);
+    QString time();
+    void setTime();
 
-    QString source();
-    void setSource(QString &source);
+    QString source() const;
+    void setSource(const QString &source);
 
-    QString destination();
-    void setDestination(QString &destination);
+    QString destination() const;
+    void setDestination(const QString &destination);
 
     ClassType type() const;
     void setType(ClassType type);
 
-    QString message();
-    void setMessage(QString &message);
+    QString message() const;
+    void setMessage(const QString &message);
 
-    void read(QJsonObject &json);
+    void read(const QJsonObject &json);
     void write(QJsonObject &json) const;
     void print(int indentetion = 0) const;
 
 private:
-    QDate mDate;
-    QTime mTime;
+    QString mDate;
+    QString mTime;
     QString mSource;
     QString mDestination;
     ClassType mType;

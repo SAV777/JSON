@@ -12,7 +12,7 @@ public:
     enum SaveFormat{
         Json, Binary
     };
-
+    Type all() const;
     void newName();
     bool loadName(SaveFormat saveFormat);
     bool saveName(SaveFormat saveFormat) const;

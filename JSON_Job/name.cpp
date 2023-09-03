@@ -9,15 +9,22 @@
 #include "QDebug"
 #include "QString"
 
+Type Name::all() const
+{
+    return mAll;
+}
 
 void Name::newName(){
+
     mAll=Type();
-    mAll.setDate(QDate::currentDate().toString("dd.MM.yyyy"));
-    mAll.setTime(QTime::currentTime().toString("H:m:s a"));
-    mAll.setSource("source");
-    mAll.setDestination("destination");
+    mAll.setDate();
+    mAll.setTime();
+//    mAll.setDate(QDate::currentDate().toString("dd.MM.yyyy"));
+//    mAll.setTime(QTime::currentTime().toString("H:m:s a"));
+    mAll.setSource(QStringLiteral("source"));
+    mAll.setDestination(QStringLiteral("destination"));
     mAll.setType(Type::Info);
-    mAll.setMessage("message");
+    mAll.setMessage(QStringLiteral("message"));
 }
 //????????????????
 bool Name::loadName(Name::SaveFormat saveFormat){
@@ -35,16 +42,16 @@ bool Name::loadName(Name::SaveFormat saveFormat){
     read(loadDoc.object());
 
     QTextStream(stdout) << "Loaded save for "
-                        << loadDoc["player"]["name"].toString()
+                        << loadDoc["all"].toString()
                         << " using "
                         << (saveFormat != Json ? "binary " : "") << "JSON...\n";
     return true;
 }
 //????????????????
-bool Name::saveName(Name::SaveFormat saveFormat){
+bool Name::saveName(Name::SaveFormat saveFormat) const{
     QFile saveFile(saveFormat == Json
-        ? QStringLiteral("save.json")
-        : QStringLiteral("save.dat"));
+        ? QStringLiteral("YYYYMMDD_HHmmss.json")
+        : QStringLiteral("YYYYMMDD_HHmmss.dat"));
 
     if (!saveFile.open(QIODevice::WriteOnly)) {
         qWarning("Couldn't open save file.");
@@ -61,9 +68,10 @@ bool Name::saveName(Name::SaveFormat saveFormat){
     return true;
 }
 
-//void Name::read(const QJsonObject &json){
-
-//}
+void Name::read(const QJsonObject &json){
+    if (json.contains("all") && json["all"].isObject())
+        mAll.read(json["all"].toObject());
+}
 
 void Name::write(QJsonObject &json) const{
     QJsonObject allObject;
