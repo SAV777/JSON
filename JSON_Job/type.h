@@ -12,9 +12,7 @@ class Type
     Q_GADGET;
 
 public:
-    enum ClassType {
-        Info, Debug, Warning, Error
-    };
+    enum ClassType {Info, Debug, Warning, Error};
 
     Q_ENUM(ClassType)
 

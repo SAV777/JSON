@@ -1,8 +1,10 @@
 {
     "all": {
+        "date": "12.09.2023",
         "destination": "destination",
         "message": "message",
         "source": "source",
+        "time": "16:35:9 ",
         "type": 0
     }
 }

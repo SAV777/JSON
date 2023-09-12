@@ -2,7 +2,7 @@
 
 #include <QMetaEnum>
 #include <QTextStream>
-QTextStream out(stdout);
+//QTextStream out(stdout);
 
 Type::Type():
     mType(Info){
@@ -98,7 +98,10 @@ void Type::print(int indentation) const{
     QTextStream(stdout)<< indent << "Time:\t\t"<<mTime<<"\n";
     QTextStream(stdout)<< indent << "Source:\t"<<mSource<<"\n";
     QTextStream(stdout)<< indent << "Destination:\t"<<mDestination<<"\n";
-    QTextStream(stdout)<< indent << "Type:\t\t"<<mType<<"\n";
+
+    QString typeName = QMetaEnum::fromType<ClassType>().valueToKey(mType);
+    QTextStream(stdout)<< indent << "Type:\t\t"<<typeName<<"\n";
+
     QTextStream(stdout)<< indent << "Message:\t"<<mMessage<<"\n";
 }
 

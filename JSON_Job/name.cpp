@@ -19,8 +19,6 @@ void Name::newName(){
     mAll=Type();
     mAll.setDate();
     mAll.setTime();
-//    mAll.setDate(QDate::currentDate().toString("dd.MM.yyyy"));
-//    mAll.setTime(QTime::currentTime().toString("H:m:s a"));
     mAll.setSource(QStringLiteral("source"));
     mAll.setDestination(QStringLiteral("destination"));
     mAll.setType(Type::Info);
